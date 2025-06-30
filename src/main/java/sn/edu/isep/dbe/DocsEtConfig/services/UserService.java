@@ -1,19 +1,19 @@
 package sn.edu.isep.dbe.DocsEtConfig.services;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
 import sn.edu.isep.dbe.DocsEtConfig.entities.Role;
 import sn.edu.isep.dbe.DocsEtConfig.entities.User;
 import sn.edu.isep.dbe.DocsEtConfig.entities.UserToken;
 import sn.edu.isep.dbe.DocsEtConfig.entities.dto.LoginResponse;
 import sn.edu.isep.dbe.DocsEtConfig.repositories.UserRepository;
 import sn.edu.isep.dbe.DocsEtConfig.repositories.UserTokenRepository;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -49,7 +49,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
     public Optional<User> findByNom(String nom){
-        return Optional.ofNullable(userRepository.findByNom(nom));
+        return userRepository.findByNom(nom);
     }
     public Optional<User> getUserfindByEmail(String email){
         return userRepository.findByEmail(email);
@@ -67,13 +67,13 @@ public class UserService {
                 //parcours des roles
 
                 for(Role role : user.getRoles()){
-                    String nomrole = role.getNom();
+                    String nomrole = role.getName();
                     if (nomrole.startsWith("ROLE_ADMIN")){
                         roles.add(nomrole);
                     }else{
                         droits.add(nomrole);
                     }
-                    roles.add(role.getNom());
+                    roles.add(role.getName());
                 }
                 UserToken userToken =generateUserToken(user);
 
@@ -108,7 +108,7 @@ public class UserService {
                 userToken.setToken(token);
                 userToken.setUser(user);
                 userToken.setExpiresAt(expirationDAte);
-                userToken.setNoteBefore(nowDay);
+                userToken.setNotBefore(nowDay);
 
                 userTokenRepository.save(userToken);
 
