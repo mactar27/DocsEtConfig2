@@ -1,0 +1,5 @@
+#spring:
+#  datasource:
+#    url: jdbc:mysql://${DOCS_CONFIG_DB_HOST:localhost}:${DOCS_CONFIG_DB_PORT:3306}/${DOCS_CONFIG_DB_NAME:docs_config_dev}
+#    username: ${DOCS_CONFIGDB_USER:root}
+#    password: ${DOCS_CONFIG_DB_PWD}

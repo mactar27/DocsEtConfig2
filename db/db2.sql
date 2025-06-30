@@ -1,0 +1,1 @@
+create DATABASE docs_config;
